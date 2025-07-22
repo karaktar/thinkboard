@@ -1,5 +1,14 @@
 import { ZapIcon } from "lucide-react";
 
+/**
+ * @file This file contains the RateLimitedUI component.
+ * This component is displayed when the user has exceeded the API rate limit.
+ */
+
+/**
+ * A UI component that informs the user that they have been rate-limited.
+ * @returns {JSX.Element}
+ */
 const RateLimitedUI = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">

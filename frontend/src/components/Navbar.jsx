@@ -1,7 +1,16 @@
 import { PlusIcon } from "lucide-react";
-import { Link } from "react-router"
+import { Link } from "react-router-dom";
 import React from "react";
 
+/**
+ * @file This file contains the Navbar component for the application.
+ * It displays the application title and a button to create a new note.
+ */
+
+/**
+ * The navigation bar component.
+ * @returns {JSX.Element}
+ */
 const Navbar = () => {
   return (
     <header className="bg-base-300 border-b border-base-content/10">
@@ -10,8 +19,8 @@ const Navbar = () => {
           <h1 className="text-3xl font-bold text-primary font-mono tracking-tight">ThinkBoard</h1>
           <div className="flex items-center gap-4">
             <Link to={"/create"} className="btn btn-primary">
-            <PlusIcon className="size-5" />
-            <span>New Note</span>
+              <PlusIcon className="size-5" />
+              <span>New Note</span>
             </Link>
           </div>
         </div>

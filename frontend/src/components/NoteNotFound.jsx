@@ -1,6 +1,16 @@
 import { NotebookIcon } from "lucide-react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
+/**
+ * @file This file contains the NotesNotFound component, which is displayed when no notes are available.
+ * It encourages the user to create their first note.
+ */
+
+/**
+ * A component that is displayed when the user has no notes.
+ * It includes a message and a link to the note creation page.
+ * @returns {JSX.Element}
+ */
 const NotesNotFound = () => {
   return (
     <div className="flex flex-col items-center justify-center py-16 space-y-6 max-w-md mx-auto text-center">

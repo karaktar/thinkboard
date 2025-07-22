@@ -1,26 +1,36 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
 import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react";
 
+/**
+ * @file This file contains the NoteDetailPage component, which allows users to view, edit, and delete a single note.
+ */
+
+/**
+ * A page component for displaying and editing the details of a single note.
+ * It fetches the note data based on the ID from the URL parameters.
+ * @returns {JSX.Element}
+ */
 const NoteDetailPage = () => {
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
   const navigate = useNavigate();
-
   const { id } = useParams();
 
   useEffect(() => {
+    /**
+     * Fetches the details of a single note from the API.
+     */
     const fetchNote = async () => {
       try {
         const res = await api.get(`/notes/${id}`);
         setNote(res.data);
       } catch (error) {
-        console.log("Error in fetching note", error);
+        console.error("Error fetching note:", error);
         toast.error("Failed to fetch the note");
       } finally {
         setLoading(false);
@@ -30,6 +40,10 @@ const NoteDetailPage = () => {
     fetchNote();
   }, [id]);
 
+  /**
+   * Handles the deletion of the current note.
+   * It asks for confirmation before sending a delete request to the API.
+   */
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this note?")) return;
 
@@ -38,11 +52,15 @@ const NoteDetailPage = () => {
       toast.success("Note deleted");
       navigate("/");
     } catch (error) {
-      console.log("Error deleting the note:", error);
+      console.error("Error deleting the note:", error);
       toast.error("Failed to delete note");
     }
   };
 
+  /**
+   * Handles saving the changes made to the note.
+   * It validates the input and sends a PUT request to the API.
+   */
   const handleSave = async () => {
     if (!note.title.trim() || !note.content.trim()) {
       toast.error("Please add a title or content");
@@ -56,7 +74,7 @@ const NoteDetailPage = () => {
       toast.success("Note updated successfully");
       navigate("/");
     } catch (error) {
-      console.log("Error saving the note:", error);
+      console.error("Error saving the note:", error);
       toast.error("Failed to update note");
     } finally {
       setSaving(false);
@@ -96,7 +114,7 @@ const NoteDetailPage = () => {
                   type="text"
                   placeholder="Note title"
                   className="input input-bordered"
-                  value={note.title}
+                  value={note?.title || ''}
                   onChange={(e) => setNote({ ...note, title: e.target.value })}
                 />
               </div>
@@ -108,7 +126,7 @@ const NoteDetailPage = () => {
                 <textarea
                   placeholder="Write your note here..."
                   className="textarea textarea-bordered h-32"
-                  value={note.content}
+                  value={note?.content || ''}
                   onChange={(e) => setNote({ ...note, content: e.target.value })}
                 />
               </div>

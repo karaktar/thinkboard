@@ -1,9 +1,18 @@
 import { ArrowLeftIcon } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../lib/axios";
 
+/**
+ * @file This file contains the CreatePage component, which provides a form for creating a new note.
+ */
+
+/**
+ * A page component that allows users to create a new note.
+ * It includes a form with title and content fields.
+ * @returns {JSX.Element}
+ */
 const CreatePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -11,6 +20,11 @@ const CreatePage = () => {
 
   const navigate = useNavigate();
 
+  /**
+   * Handles the form submission for creating a new note.
+   * It performs validation, sends a POST request to the API, and handles success and error cases.
+   * @param {object} e - The form submission event.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,7 +44,7 @@ const CreatePage = () => {
       navigate("/");
     } catch (error) {
       console.log("Error creating note", error);
-      if (error.response.status === 429) {
+      if (error.response?.status === 429) {
         toast.error("Slow down! You're creating notes too fast", {
           duration: 4000,
           icon: "💀",
